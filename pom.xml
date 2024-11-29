@@ -7,33 +7,80 @@
   <version>1.0-SNAPSHOT</version>
   <name>nursing-home-management-system Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  <properties>
+    <mysql-version>8.0.28</mysql-version>
+    <servlet-version>3.1.0</servlet-version>
+    <junit-version>3.8.1</junit-version>
+    <lombok-version>1.18.30</lombok-version>
+    <fastjson-version>1.2.83</fastjson-version>
+    <dbutils-version>1.7</dbutils-version>
+    <email-version>1.5</email-version>
+    <poi-version>4.1.2</poi-version>
+    <druid-version>1.2.16</druid-version>
+    <c3p0-version>0.9.5.4</c3p0-version>
+  </properties>
   <dependencies>
+    <!--注入c3p0数据库连接词依赖-->
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>${c3p0-version}</version>
+    </dependency>
+    <!--注入poi上传下载依赖-->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>${poi-version}</version>
+    </dependency>
+    <!--注入druid数据库连接池依赖-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>${druid-version}</version>
+    </dependency>
+    <!--注入邮件发送依赖-->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-email</artifactId>
+      <version>${email-version}</version>
+    </dependency>
+    <!--注入mysql依赖-->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.28</version>
+      <version>${mysql-version}</version>
     </dependency>
+    <!--注入servlet依赖-->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <version>${servlet-version}</version>
     </dependency>
+    <!--注入junit单元测试依赖-->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>${junit-version}</version>
       <scope>test</scope>
     </dependency>
+    <!--注入lombok依赖-->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.30</version>
+      <version>${lombok-version}</version>
       <scope>provided</scope>
     </dependency>
+    <!--注入Json转化依赖-->
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.2.83</version>
+      <version>${fastjson-version}</version>
+    </dependency>
+    <!--注入dbutils数据库工具依赖-->
+    <dependency>
+      <groupId>commons-dbutils</groupId>
+      <artifactId>commons-dbutils</artifactId>
+      <version>${dbutils-version}</version>
     </dependency>
   </dependencies>
   <build>
