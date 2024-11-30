@@ -23,29 +23,37 @@ public class DataSourceUtil {
      *
      * @return 如果成功加载并创建数据源则返回 DataSource 对象，否则返回 null
      */
-    public  static DataSource getDataSource() {
-        Properties properties = new Properties();
-        try(InputStream inputStream = DataSourceUtil.class.getClassLoader().getResourceAsStream("druid.properties")) {
-            // 加载 properties 文件
-            //InputStream inputStream = DataSourceUtil.class.getClassLoader().getResourceAsStream("druid.properties");
-            properties.load(inputStream);
-        } catch (IOException e) {
-            // 更有效的异常处理
-            System.err.println("加载 properties 文件时出错: " + e.getMessage());
-            e.printStackTrace();
-            return null; // 如果加载失败，返回 null
-        }
+    public static DataSource getDataSource() {
+        if (dataSource == null) {
+            synchronized (DataSourceUtil.class) {
+                if (dataSource == null) {
+                    Properties properties = new Properties();
+                    try (InputStream inputStream = DataSourceUtil.class.getClassLoader().getResourceAsStream("druid.properties")) {
+                        if (inputStream == null) {
+                            throw new IOException("无法找到 druid.properties 文件");
+                        }
+                        // 加载 properties 文件
+                        properties.load(inputStream);
+                    } catch (IOException e) {
+                        // 更有效的异常处理
+                        System.err.println("加载 properties 文件时出错: " + e.getMessage());
+                        e.printStackTrace();
+                        return null; // 如果加载失败，返回 null
+                    }
 
-        try {
-            // 使用 DruidDataSourceFactory 创建 DataSource
-            dataSource = DruidDataSourceFactory.createDataSource(properties);
-            return dataSource;
-        } catch (Exception e) {
-            // 创建 DataSource 时的异常处理
-            System.err.println("创建 DataSource 时出错: " + e.getMessage());
-            e.printStackTrace();
-            return null; // 如果创建失败，返回 null
+                    try {
+                        // 使用 DruidDataSourceFactory 创建 DataSource
+                        dataSource = DruidDataSourceFactory.createDataSource(properties);
+                    } catch (Exception e) {
+                        // 创建 DataSource 时的异常处理
+                        System.err.println("创建 DataSource 时出错: " + e.getMessage());
+                        e.printStackTrace();
+                        return null; // 如果创建失败，返回 null
+                    }
+                }
+            }
         }
+        return dataSource;
     }
 
 

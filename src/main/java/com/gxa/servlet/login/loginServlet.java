@@ -29,6 +29,7 @@ public class loginServlet extends BaseServlet {
         String password = request.getParameter("password");
         Role role = loginService.login(username,password);
         if(role != null){
+            request.getSession().setAttribute("role",role);
             Write.writeSuccess(response,role);
         }else {
             Write.writeFail(response,"用户名或密码错误");

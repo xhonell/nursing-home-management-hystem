@@ -38,9 +38,9 @@ public class LanguageFilter implements Filter {
         /*设置响应的字符集utf-8,并强制返回json格式*/
         servletResponse.setContentType("application/json;charset=utf-8");
         /*获取session中的player，如果为空则跳转到登录页面*/
-        Object player = ((HttpServletRequest) servletRequest).getSession().getAttribute("player");
+        Object player = ((HttpServletRequest) servletRequest).getSession().getAttribute("role");
         if (player == null) {
-            ((HttpServletResponse)servletResponse).sendRedirect("../login.html");
+            ((HttpServletResponse)servletResponse).sendRedirect("/Login/login.html");
         }else{
             filterChain.doFilter(servletRequest, servletResponse);
         }

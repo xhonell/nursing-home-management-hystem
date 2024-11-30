@@ -29,6 +29,8 @@ $(function(){
                 success: function (res) {
                     if (res.code === 200) {
                         layer.msg('登录成功');
+                        window.localStorage.setItem("role",res.data);
+                        location.href = '/pageReal/index.html';
                     } else {
                         layer.msg(res.msg);
                     }

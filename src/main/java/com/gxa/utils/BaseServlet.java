@@ -23,7 +23,7 @@ public class BaseServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json; charset=UTF-8");
         try {
             /*获取当前对象的字节码*/
             Class<? extends BaseServlet> aClass = this.getClass();
