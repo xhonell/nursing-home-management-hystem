@@ -6,8 +6,6 @@ import org.apache.commons.dbutils.handlers.*;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,7 +25,7 @@ public class DataSourceUtil {
      */
     public  static DataSource getDataSource() {
         Properties properties = new Properties();
-        try(InputStream inputStream = Files.newInputStream(Paths.get("src/main/resources/druid.properties"));) {
+        try(InputStream inputStream = DataSourceUtil.class.getClassLoader().getResourceAsStream("druid.properties")) {
             // 加载 properties 文件
             //InputStream inputStream = DataSourceUtil.class.getClassLoader().getResourceAsStream("druid.properties");
             properties.load(inputStream);
