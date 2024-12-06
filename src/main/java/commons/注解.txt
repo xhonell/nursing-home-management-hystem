@@ -1,0 +1,7 @@
+当前是工具类：
+    BaseServlet:Servlet的工具类，可以将多个Servlet集成一个，其原理是反射
+    DataSourceUtil:数据库连接池，增大数据库的查询速率
+    DBHelper、JDBCUtils:数据库CURD的工具类
+    EmailUtils:邮箱验证的工具类
+    FileUtils:文件路径的工具类，获取文件后缀
+    MyFormatUtils:格式化工具类，格式化时间和数字等
