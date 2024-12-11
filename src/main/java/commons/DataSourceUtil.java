@@ -1,13 +1,13 @@
 package commons;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.*;
+
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,29 +25,43 @@ public class DataSourceUtil {
      *
      * @return 如果成功加载并创建数据源则返回 DataSource 对象，否则返回 null
      */
-    public  static DataSource getDataSource() {
-        Properties properties = new Properties();
-        try(InputStream inputStream = Files.newInputStream(Paths.get("src/main/resources/druid.properties"));) {
-            // 加载 properties 文件
-            //InputStream inputStream = DataSourceUtil.class.getClassLoader().getResourceAsStream("druid.properties");
-            properties.load(inputStream);
-        } catch (IOException e) {
-            // 更有效的异常处理
-            System.err.println("加载 properties 文件时出错: " + e.getMessage());
-            e.printStackTrace();
-            return null; // 如果加载失败，返回 null
+
+    public static DataSource getDataSource() {
+        // 如果 dataSource 已经初始化，直接返回
+        if (dataSource != null) {
+            return dataSource;
         }
 
-        try {
-            // 使用 DruidDataSourceFactory 创建 DataSource
-            dataSource = DruidDataSourceFactory.createDataSource(properties);
-            return dataSource;
-        } catch (Exception e) {
-            // 创建 DataSource 时的异常处理
-            System.err.println("创建 DataSource 时出错: " + e.getMessage());
-            e.printStackTrace();
-            return null; // 如果创建失败，返回 null
+        synchronized (DataSourceUtil.class) {
+            // 再次检查，防止多线程同时初始化
+            if (dataSource == null) {
+                Properties properties = new Properties();
+                try (InputStream inputStream = DataSourceUtil.class.getClassLoader().getResourceAsStream("druid.properties")) {
+                    if (inputStream == null) {
+                        System.err.println("配置文件 druid.properties 未找到!");
+                        return null; // 配置文件未找到
+                    }
+                    properties.load(inputStream);
+                } catch (IOException e) {
+                    // 捕获加载配置文件时的异常
+                    System.err.println("加载 properties 文件时出错: " + e.getMessage());
+                    e.printStackTrace();
+                    return null; // 如果加载失败，返回 null
+                }
+
+                // 创建 DataSource
+                try {
+                    // 使用 DruidDataSourceFactory 创建 DataSource
+                    dataSource = (DruidDataSource) DruidDataSourceFactory.createDataSource(properties);
+                } catch (Exception e) {
+                    // 捕获创建 DataSource 时的异常
+                    System.err.println("创建 DataSource 时出错: " + e.getMessage());
+                    e.printStackTrace();
+                    return null; // 如果创建失败，返回 null
+                }
+            }
         }
+        return dataSource;
     }
 
 

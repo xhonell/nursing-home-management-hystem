@@ -58,23 +58,26 @@ public class MyFormatUtils {
      * @return
      * @throws ParseException
      */
-    public static Date toDate(String date) throws ParseException {
+    public static Date toDate(String date){
         return toDate(date, PATTERN_DATE);
     }
 
     /**
      * 按指定格式转换为日期
      *
-     * @param date
-     * @param pattern
      * @return
      */
-    public static Date toDate(String date, String pattern) throws ParseException {
-        Date date2 = null;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        date2 = simpleDateFormat.parse(date);
-        return date2;
+    public static Date toDate(String dateStr, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        sdf.setLenient(false);
+        try {
+            return sdf.parse(dateStr); // 返回 Date 对象
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
 
     /**
      * 按默认格式把日期解析成字符串
