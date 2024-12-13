@@ -3,6 +3,7 @@ package servlet;
 
 import bean.pojo.Player;
 import bean.vo.PlayerVo;
+import bean.vo.RouterVo;
 import commons.BaseServlet;
 import commons.WebParameterUtils;
 import commons.Write;
@@ -12,6 +13,7 @@ import service.impl.LoginServiceImpl;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -46,6 +48,14 @@ public class LoginServlet extends BaseServlet {
             Write.writeSuccess(response,user);
         }else{
             Write.writeFail(response,"登录信息已过期，请重新登陆！");
+        }
+    }
+
+    public void getPageUrl(HttpServletRequest request, HttpServletResponse response){
+        String roles = request.getParameter("roles");
+        List<RouterVo> routerVos =  loginService.getPageUrl(roles);
+        if(routerVos != null){
+            Write.writeSuccess(response,routerVos);
         }
     }
 }

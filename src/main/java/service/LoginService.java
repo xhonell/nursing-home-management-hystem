@@ -3,6 +3,9 @@ package service;
 
 import bean.pojo.Player;
 import bean.vo.PlayerVo;
+import bean.vo.RouterVo;
+
+import java.util.List;
 
 /**
  * <p>Project:java_maven_project - LoginServiceImpl
@@ -16,4 +19,6 @@ import bean.vo.PlayerVo;
  */
 public interface LoginService {
     PlayerVo login(Player player);
+
+    List<RouterVo> getPageUrl(String roles);
 }

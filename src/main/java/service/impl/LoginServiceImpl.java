@@ -2,9 +2,13 @@ package service.impl;
 
 
 import bean.pojo.Player;
+import bean.pojo.Router;
 import bean.vo.PlayerVo;
+import bean.vo.RouterVo;
 import dao.LoginDao;
 import service.LoginService;
+
+import java.util.List;
 
 /**
  * <p>Project:java_maven_project - LoginServiceImpl
@@ -22,5 +26,15 @@ public class LoginServiceImpl implements LoginService {
     public PlayerVo login(Player player) {
         Object [] params = {player.getPlayer_nickName(),player.getPlayer_Password()};
         return loginDao.login(params);
+    }
+
+    @Override
+    public List<RouterVo> getPageUrl(String roles) {
+        List<RouterVo> parentPageUrl = loginDao.getParentPageUrl(roles);
+        for (RouterVo routerVo : parentPageUrl) {
+            List<Router> childrenPageUrl = loginDao.getChildrenPageUrl(routerVo.getRouter_id(), roles);
+            routerVo.setChildren(childrenPageUrl);
+        }
+        return parentPageUrl;
     }
 }
