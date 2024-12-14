@@ -1,11 +1,11 @@
 package servlet;
 
-
-import bean.pojo.Player;
-import bean.vo.PlayerVo;
-import bean.vo.RouterVo;
+import bean.dto.LoginDto;
+import bean.pojo.Router;
+import bean.pojo.User;
+import bean.vo.LoginVo;
 import commons.BaseServlet;
-import commons.WebParameterUtils;
+import commons.GetJsonParamsUtils;
 import commons.Write;
 import service.LoginService;
 import service.impl.LoginServiceImpl;
@@ -14,48 +14,84 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Objects;
 
 /**
- * <p>Project:java_maven_project - LoginServlet
- * <p>POWER by xhonell on 2024-12-09 14:57
- * <p>description：
- * <p>idea：
- *
- * @author xhonell
- * @version 1.0
- * @since 1.8
- */
+ * program: nursing-home-management-system
+ * ClassName LoginServlet
+ * description:登录接口
+ * author: xhonell
+ * create: 2024年12月13日21时28分
+ * Version 1.0
+ **/
 @WebServlet("/user/*")
 public class LoginServlet extends BaseServlet {
     LoginService loginService = new LoginServiceImpl();
-    public void login(HttpServletRequest request, HttpServletResponse response){
-        Player player = WebParameterUtils.receiveJsonToPojo(request, Player.class);
-        PlayerVo playerVo = loginService.login(player);
-        if(playerVo != null){
-            String id = request.getSession().getId();
-            playerVo.setToken(id);
-            request.getSession().setAttribute("token", id);
-            request.getSession().setAttribute("user", playerVo);
-            Write.writeSuccess(response, playerVo);
-        }
-    }
-    public void info(HttpServletRequest request, HttpServletResponse response){
-        String token = request.getParameter("token");
-        String userTaken = String.valueOf(request.getSession().getAttribute("token"));
-        if(Objects.equals(userTaken, token)){
-            Object user = request.getSession().getAttribute("user");
-            Write.writeSuccess(response,user);
+    /**
+     * 用户登录处理
+     *
+     * @param req  HttpServletRequest对象，包含客户端发送的HTTP请求信息
+     * @param resp HttpServletResponse对象，用于向客户端发送HTTP响应
+     */
+    public void login(HttpServletRequest req, HttpServletResponse resp){
+        LoginDto loginDto = GetJsonParamsUtils.receiveJsonToPojo(req, LoginDto.class);
+        User user = loginService.checkLogin(loginDto);
+        String sessionId = req.getSession().getId();
+        LoginVo loginVo = new LoginVo();
+        loginVo.setToken(sessionId);
+
+        if (user != null){
+            /*将token和用户信息保存*/
+            req.getSession().setAttribute("token", sessionId);
+            req.getSession().setAttribute("user", user);
+
+            Write.writeSuccess(resp, loginVo);
         }else{
-            Write.writeFail(response,"登录信息已过期，请重新登陆！");
+            String msg = "账号密码错误";
+            Write.writeSuccess(resp,null,msg);
         }
     }
 
-    public void getPageUrl(HttpServletRequest request, HttpServletResponse response){
-        String roles = request.getParameter("roles");
-        List<RouterVo> routerVos =  loginService.getPageUrl(roles);
-        if(routerVos != null){
-            Write.writeSuccess(response,routerVos);
+    /**
+     * 处理用户信息请求
+     *
+     * @param req  HttpServletRequest对象，包含客户端发送的HTTP请求信息
+     * @param resp HttpServletResponse对象，用于向客户端发送HTTP响应
+     */
+    public void info(HttpServletRequest req, HttpServletResponse resp){
+        String token = req.getParameter("token");
+        String sessionToken = String.valueOf(req.getSession().getAttribute("token"));
+        if (sessionToken.equals(token)){
+            Object user = req.getSession().getAttribute("user");
+            Write.writeSuccess(resp, user);
+        } else {
+            Write.writeSuccess(resp,null, "token失效");
+        }
+    }
+
+    /**
+     * 用户登出处理
+     *
+     * @param req  HttpServletRequest对象，包含客户端发送的HTTP请求信息
+     * @param resp HttpServletResponse对象，用于向客户端发送HTTP响应
+     */
+    public void logout(HttpServletRequest req, HttpServletResponse resp){
+        req.getSession().invalidate();
+        Write.writeSuccess(resp);
+    }
+
+    /**
+     * 处理路由请求
+     *
+     * @param req  HttpServletRequest对象，包含请求信息
+     * @param resp HttpServletResponse对象，用于向客户端发送响应
+     */
+    public void router(HttpServletRequest req, HttpServletResponse resp){
+        String roles = req.getParameter("roles");
+        List<Router> routerList = loginService.getRouter(roles);
+        if (routerList != null){
+            Write.writeSuccess(resp, routerList);
+        } else {
+            Write.writeSuccess(resp, null, "角色权限不足，请联系管理员！");
         }
     }
 }

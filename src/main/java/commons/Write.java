@@ -18,6 +18,10 @@ import java.io.PrintWriter;
  */
 public class Write {
 
+    /**
+     * 返回默认的成功信息
+     * @param resp
+     */
     public static void writeSuccess(HttpServletResponse resp) {
         PrintWriter writer = null;
         try {
@@ -31,6 +35,11 @@ public class Write {
         writer.close();
     }
 
+    /**
+     * 返回m默认成功信息和数据
+     * @param resp
+     * @param obj
+     */
     public static void writeSuccess(HttpServletResponse resp, Object obj) {
         PrintWriter writer = null;
         try {
@@ -39,6 +48,24 @@ public class Write {
             e.printStackTrace();
         }
         String jsonString = JSON.toJSONString(R.success(obj));
+        writer.write(jsonString);
+        writer.flush();
+        writer.close();
+    }
+
+    /**
+     * 返回成功信息和数据
+     * @param resp
+     * @param obj
+     */
+    public static void writeSuccess(HttpServletResponse resp, Object obj, String msg) {
+        PrintWriter writer = null;
+        try {
+            writer = resp.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String jsonString = JSON.toJSONString(R.success(obj,msg));
         writer.write(jsonString);
         writer.flush();
         writer.close();

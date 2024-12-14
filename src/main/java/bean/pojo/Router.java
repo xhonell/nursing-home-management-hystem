@@ -1,20 +1,19 @@
 package bean.pojo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Router {
 
-  private long router_id;
-  private String router_path;
-  private String router_component;
-  private String router_name;
-  private String router_title;
-  private String router_icon;
-  private String router_parentId;
+  private long pageId;
+  private String pagePath;
+  private String pageComponent;
+  private String pageName;
+  private String pageTitle;
+  private String pageIcon;
+  private long pageParentId;
+  private List<Router> pageChildren;
 
 }

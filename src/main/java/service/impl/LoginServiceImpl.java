@@ -1,40 +1,56 @@
 package service.impl;
 
-
-import bean.pojo.Player;
+import bean.dto.LoginDto;
 import bean.pojo.Router;
-import bean.vo.PlayerVo;
-import bean.vo.RouterVo;
+import bean.pojo.User;
 import dao.LoginDao;
+import dao.impl.LoginDaoImpl;
 import service.LoginService;
 
 import java.util.List;
 
 /**
- * <p>Project:java_maven_project - LoginServiceImpl
- * <p>POWER by xhonell on 2024-12-09 15:00
- * <p>description：
- * <p>idea：
- *
- * @author xhonell
- * @version 1.0
- * @since 1.8
- */
+ * program: nursing-home-management-system
+ * ClassName LoginServiceImpl
+ * description:
+ * author: xhonell
+ * create: 2024年12月13日21时55分
+ * Version 1.0
+ **/
 public class LoginServiceImpl implements LoginService {
-    LoginDao loginDao = new LoginDao();
+    LoginDao loginDao = new LoginDaoImpl();
+    /**
+     * 检查用户登录信息
+     *
+     * @param loginDto 登录信息对象，包含用户名和密码
+     * @return 登录成功的用户对象，若登录失败则返回null
+     */
     @Override
-    public PlayerVo login(Player player) {
-        Object [] params = {player.getPlayer_nickName(),player.getPlayer_Password()};
-        return loginDao.login(params);
+    public User checkLogin(LoginDto loginDto) {
+        String username = loginDto.getUsername();
+        String password = loginDto.getPassword();
+        Object[] params = {username, password};
+        return loginDao.checkLogin(params);
     }
 
+    /**
+     * 根据角色获取路由信息
+     *
+     * @param roles 角色名称
+     * @return 路由信息列表，如果查询失败或没有对应的路由信息则返回null
+     */
     @Override
-    public List<RouterVo> getPageUrl(String roles) {
-        List<RouterVo> parentPageUrl = loginDao.getParentPageUrl(roles);
-        for (RouterVo routerVo : parentPageUrl) {
-            List<Router> childrenPageUrl = loginDao.getChildrenPageUrl(routerVo.getRouter_id(), roles);
-            routerVo.setChildren(childrenPageUrl);
+    public List<Router> getRouter(String roles) {
+        List<Router> firstRouter = loginDao.getFirstRouter(roles);
+        if (firstRouter == null) {
+            return null;
         }
-        return parentPageUrl;
+        for (Router router : firstRouter) {
+            List<Router> childrenRouter = loginDao.getChildrenRouter(router.getPageId(),roles);
+            if (childrenRouter != null) {
+                router.setPageChildren(childrenRouter);
+            }
+        }
+        return firstRouter;
     }
 }

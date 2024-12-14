@@ -40,6 +40,15 @@ public class R<T> implements Serializable {
         return r;
     }
 
+    /*返回成功的方法没有参数*/
+    public static <T> R<T> success(T data, String msg) {
+        R<T> r = new R<>();
+        r.setMsg(msg);
+        r.setCode(200);
+        r.setData(data);
+        return r;
+    }
+
     /*返回失败的方法*/
     public static <T> R<T> failed() {
         R<T> r = new R<>();
