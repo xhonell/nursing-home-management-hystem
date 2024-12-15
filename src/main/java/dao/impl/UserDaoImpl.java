@@ -49,4 +49,16 @@ public class UserDaoImpl implements UserDao {
         String sql = "select * from user where roleId = ?";
         return DataSourceUtil.queryToBeanHandler(sql, User.class, roleId);
     }
+
+    /**
+     * 通过ID更新用户密码
+     *
+     * @param params 参数数组，其中第一个元素为新的密码，第二个元素为用户ID
+     * @return 更新成功返回受影响的行数，更新失败返回-1
+     */
+    @Override
+    public int updatePasswordById(Object[] params) {
+        String sql = "update user set rolePassword = ? where roleId = ?";
+        return DataSourceUtil.update(sql, params);
+    }
 }

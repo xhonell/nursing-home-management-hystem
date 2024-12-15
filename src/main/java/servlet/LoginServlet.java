@@ -47,7 +47,7 @@ public class LoginServlet extends BaseServlet {
             Write.writeSuccess(resp, loginVo);
         }else{
             String msg = "账号密码错误";
-            Write.writeSuccess(resp,null,msg);
+            Write.writeFail(resp,msg);
         }
     }
 
@@ -64,7 +64,7 @@ public class LoginServlet extends BaseServlet {
             Object user = req.getSession().getAttribute("user");
             Write.writeSuccess(resp, user);
         } else {
-            Write.writeSuccess(resp,null, "token失效");
+            Write.writeFail(resp,"token失效");
         }
     }
 
@@ -91,7 +91,7 @@ public class LoginServlet extends BaseServlet {
         if (routerList != null){
             Write.writeSuccess(resp, routerList);
         } else {
-            Write.writeSuccess(resp, null, "角色权限不足，请联系管理员！");
+            Write.writeFail(resp,  "角色权限不足，请联系管理员！");
         }
     }
 

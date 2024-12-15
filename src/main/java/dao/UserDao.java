@@ -16,4 +16,6 @@ public interface UserDao {
     int updateUser(Object[] params);
 
     User selectUserById(long roleId);
+
+    int updatePasswordById(Object[] params);
 }

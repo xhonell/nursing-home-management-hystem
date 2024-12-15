@@ -1,5 +1,6 @@
 package service;
 
+import bean.dto.ResetPasswordDto;
 import bean.pojo.User;
 
 /**
@@ -14,4 +15,6 @@ public interface UserService {
     boolean updateAvatar(long roleId, String relativePath);
 
     User updateUser(User user);
+
+    boolean resetPassword(ResetPasswordDto resetPasswordDto);
 }

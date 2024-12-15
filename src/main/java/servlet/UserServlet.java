@@ -1,5 +1,6 @@
 package servlet;
 
+import bean.dto.ResetPasswordDto;
 import bean.pojo.User;
 import commons.BaseServlet;
 import commons.FileUtils;
@@ -76,6 +77,28 @@ public class UserServlet extends BaseServlet {
         } else{
             req.getSession().setAttribute("user",newUser);
             Write.writeSuccess(resp,newUser,"更新成功");
+        }
+    }
+
+    /**
+     * 重置密码
+     *
+     * @param req  HttpServletRequest对象，用于接收客户端的请求
+     * @param resp HttpServletResponse对象，用于向客户端发送响应
+     * @throws IOException 如果在写入响应时发生I/O错误
+     */
+    public void resetPassword(HttpServletRequest req, HttpServletResponse resp){
+        ResetPasswordDto resetPasswordDto = GetJsonParamsUtils.receiveJsonToPojo(req, ResetPasswordDto.class);
+        User user = (User)req.getSession().getAttribute("user");
+        if (resetPasswordDto != null && !user.getRolePassword().equals(resetPasswordDto.getRolePassword())) {
+            Write.writeFail(resp, "原密码错误");
+        }
+        boolean isSuccess = userService.resetPassword(resetPasswordDto);
+        if (isSuccess) {
+            Write.writeSuccess(resp,null, "重置成功");
+            new LoginServlet().logout(req, resp);
+        } else {
+            Write.writeFail(resp, "重置失败");
         }
     }
 }

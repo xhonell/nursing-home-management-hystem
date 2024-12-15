@@ -1,5 +1,6 @@
 package service.impl;
 
+import bean.dto.ResetPasswordDto;
 import bean.pojo.User;
 import dao.UserDao;
 import dao.impl.UserDaoImpl;
@@ -50,5 +51,20 @@ public class UserServiceImpl implements UserService {
         } else {
             return null;
         }
+    }
+
+    /**
+     * 重置用户密码
+     *
+     * @param resetPasswordDto 重置密码数据传输对象，包含新密码和用户角色ID
+     * @return 如果重置密码成功，则返回true；否则返回false
+     */
+    @Override
+    public boolean resetPassword(ResetPasswordDto resetPasswordDto) {
+        Object[] params = {
+                resetPasswordDto.getNewRolePassword(),
+                resetPasswordDto.getRoleId(),
+        };
+        return userDao.updatePasswordById(params) > 0;
     }
 }
