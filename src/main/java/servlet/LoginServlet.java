@@ -23,7 +23,7 @@ import java.util.List;
  * create: 2024年12月13日21时28分
  * Version 1.0
  **/
-@WebServlet("/user/*")
+@WebServlet("/login/*")
 public class LoginServlet extends BaseServlet {
     LoginService loginService = new LoginServiceImpl();
     /**
@@ -94,4 +94,5 @@ public class LoginServlet extends BaseServlet {
             Write.writeSuccess(resp, null, "角色权限不足，请联系管理员！");
         }
     }
+
 }
