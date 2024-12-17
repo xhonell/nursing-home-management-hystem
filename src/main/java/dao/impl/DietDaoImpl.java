@@ -23,11 +23,29 @@ public class DietDaoImpl implements DietDao {
      * @param params 查询参数，对于此实现来说，此参数未被使用
      * @return 饮食记录的总数
      */
-    @Override
     public Long listCount(Object[] params) {
-        String sql = "select count(*) from diet";
-        return (Long) Objects.requireNonNull(DataSourceUtil.queryToArrayHandler(sql))[0];
+        StringBuilder sql = new StringBuilder("select count(*) from diet " +
+                "left join doctor on doctor.doctorId = diet.doctorId " +
+                "where 1=1");
+
+        List<Object> paramsList = new ArrayList<>();
+
+        // dietFood模糊查询
+        if (params[0] != null && !String.valueOf(params[0]).trim().isEmpty()) {
+            sql.append(" and dietFood like concat('%',?,'%')");
+            paramsList.add(String.valueOf(params[0]));
+        }
+
+        // dietTime精确查询
+        if (params[1] != null && !String.valueOf(params[1]).trim().isEmpty()) {
+            sql.append(" and dietTime = ?");
+            paramsList.add(String.valueOf(params[1]));
+        }
+
+        // 执行查询并返回结果
+        return (Long) Objects.requireNonNull(DataSourceUtil.queryToArrayHandler(sql.toString(), paramsList.toArray()))[0];
     }
+
 
     /**
      * 根据给定的参数列表查询饮食记录列表
