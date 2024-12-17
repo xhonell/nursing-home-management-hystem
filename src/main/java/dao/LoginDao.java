@@ -19,4 +19,8 @@ public interface LoginDao {
     List<Router> getFirstRouter(String roles);
 
     List<Router> getChildrenRouter(long pageId, String roles);
+
+    User queryEmail(String email);
+
+    int forgetPassword(Object[] params);
 }

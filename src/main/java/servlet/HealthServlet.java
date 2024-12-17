@@ -101,6 +101,17 @@ public class HealthServlet extends BaseServlet {
         }
     }
 
+    /**
+     * 删除健康记录
+     *
+     * @param req  HttpServletRequest对象，用于接收客户端的请求
+     * @param resp HttpServletResponse对象，用于向客户端返回响应
+     *
+     * 此方法接收客户端的HTTP请求，从请求中获取名为"healthId"的参数，该参数表示要删除的健康记录的ID。
+     * 然后，将"healthId"字符串转换为Long类型的健康记录ID，并调用healthService的delete方法尝试删除对应的健康记录。
+     * 如果删除成功，则通过Write.writeSuccess方法向客户端返回"删除成功"的响应；
+     * 如果删除失败，则通过Write.writeFail方法向客户端返回"删除失败"的响应。
+     */
     public void delete(HttpServletRequest req, HttpServletResponse resp){
         String healthId = req.getParameter("healthId");
         boolean isSuccess = healthService.delete(Long.parseLong(healthId));
