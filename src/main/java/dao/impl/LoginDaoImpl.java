@@ -58,4 +58,36 @@ public class LoginDaoImpl implements LoginDao {
                 " where page.pageParentId = ? and roles.rolePrivileges = ?";
         return DataSourceUtil.queryToBeanListHandler(sql, Router.class, pageId, roles);
     }
+
+    /**
+     * 根据邮箱查询用户信息
+     *
+     * @param email 用户的邮箱地址
+     * @return 查询到的用户对象，如果未找到则返回null
+     *
+     * 通过执行SQL查询语句，从"user"表中查找与指定邮箱地址匹配的用户记录。
+     * 如果找到匹配的记录，则将该记录转换为User对象并返回；否则返回null。
+     * 使用DataSourceUtil的queryToBeanHandler方法处理查询结果，将结果集的第一行数据映射到User对象中。
+     */
+    @Override
+    public User queryEmail(String email) {
+        String sql = "select * from user where roleEmail = ?";
+        return DataSourceUtil.queryToBeanHandler(sql, User.class, email);
+    }
+
+    /**
+     * 重置用户密码
+     *
+     * @param params 参数数组，包含新密码和用户的邮箱地址
+     * @return 影响的行数，成功更新则返回1，否则返回0
+     *
+     * 通过执行SQL更新语句，将指定邮箱地址的用户的密码更新为新密码。
+     * SQL语句从"user"表中查找与给定邮箱地址匹配的用户记录，并将其密码字段更新为新的密码值。
+     * 使用DataSourceUtil的update方法执行更新操作，并返回受影响的行数作为操作结果。
+     */
+    @Override
+    public int forgetPassword(Object[] params) {
+        String sql = "update user set rolePassword = ? where roleEmail = ?";
+        return DataSourceUtil.update(sql, params);
+    }
 }
