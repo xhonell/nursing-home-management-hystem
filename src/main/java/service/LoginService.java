@@ -1,6 +1,7 @@
 package service;
 
-import bean.dto.LoginDto;
+import bean.dto.login.ForgetPasswordDto;
+import bean.dto.login.LoginDto;
 import bean.pojo.Router;
 import bean.pojo.User;
 
@@ -19,4 +20,8 @@ public interface LoginService {
     User checkLogin(LoginDto loginDto);
 
     List<Router> getRouter(String roles);
+
+    boolean queryEmail(String email);
+
+    boolean resetPassword(ForgetPasswordDto forgetPasswordDto);
 }

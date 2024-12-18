@@ -1,4 +1,4 @@
-package bean.dto;
+package bean.dto.login;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.dto.ResetPasswordDto;
+import bean.dto.login.ResetPasswordDto;
 import bean.pojo.User;
 import commons.BaseServlet;
 import commons.FileUtils;

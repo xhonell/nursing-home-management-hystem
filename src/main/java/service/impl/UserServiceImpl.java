@@ -1,6 +1,6 @@
 package service.impl;
 
-import bean.dto.ResetPasswordDto;
+import bean.dto.login.ResetPasswordDto;
 import bean.pojo.User;
 import dao.UserDao;
 import dao.impl.UserDaoImpl;
