@@ -36,7 +36,7 @@ public class LoginDaoImpl implements LoginDao {
      */
     @Override
     public List<Router> getFirstRouter(String roles) {
-        String sql = "select page.* from page left join permission on page.pageId = permission.pageId" +
+        String sql = "select distinct page.* from page left join permission on page.pageId = permission.pageId" +
                 " left join roles on permission.roleId = roles.roleId" +
                 " left join user on roles.rolePrivileges = user.rolePrivileges" +
                 " where page.pageParentId is null and roles.rolePrivileges = ?";
@@ -52,7 +52,7 @@ public class LoginDaoImpl implements LoginDao {
      */
     @Override
     public List<Router> getChildrenRouter(long pageId, String roles) {
-        String sql = "select page.* from page left join permission on page.pageId = permission.pageId" +
+        String sql = "select distinct page.* from page left join permission on page.pageId = permission.pageId" +
                 " left join roles on permission.roleId = roles.roleId" +
                 " left join user on roles.rolePrivileges = user.rolePrivileges" +
                 " where page.pageParentId = ? and roles.rolePrivileges = ?";
