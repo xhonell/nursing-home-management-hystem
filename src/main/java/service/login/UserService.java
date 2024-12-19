@@ -1,4 +1,4 @@
-package service;
+package service.login;
 
 import bean.dto.login.ResetPasswordDto;
 import bean.pojo.User;

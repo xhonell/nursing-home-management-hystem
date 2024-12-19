@@ -1,12 +1,12 @@
-package service.impl;
+package service.impl.record;
 
 import bean.dto.diet.DietCreateDto;
 import bean.dto.diet.DietQueryDto;
 import bean.dto.diet.DietUpdateDto;
 import bean.vo.DietQueryVo;
-import dao.DietDao;
-import dao.impl.DietDaoImpl;
-import service.DietService;
+import dao.record.DietDao;
+import dao.impl.record.DietDaoImpl;
+import service.record.DietService;
 
 /**
  * program: nursing-home-management-system

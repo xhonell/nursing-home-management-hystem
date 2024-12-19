@@ -1,4 +1,4 @@
-package service;
+package service.record;
 
 import bean.dto.health.HealthCreateDto;
 import bean.dto.health.HealthQueryDto;

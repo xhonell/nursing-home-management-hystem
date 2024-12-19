@@ -1,9 +1,9 @@
-package dao.impl;
+package dao.impl.login;
 
 import bean.pojo.Router;
 import bean.pojo.User;
 import commons.DataSourceUtil;
-import dao.LoginDao;
+import dao.login.LoginDao;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package service;
+package service.login;
 
 import bean.dto.login.ForgetPasswordDto;
 import bean.dto.login.LoginDto;

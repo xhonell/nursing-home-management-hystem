@@ -1,8 +1,8 @@
-package dao.impl;
+package dao.impl.record;
 
 import bean.pojo.Diet;
 import commons.DataSourceUtil;
-import dao.DietDao;
+import dao.record.DietDao;
 
 import java.util.ArrayList;
 import java.util.List;

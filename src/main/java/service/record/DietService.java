@@ -1,4 +1,4 @@
-package service;
+package service.record;
 
 import bean.dto.diet.DietCreateDto;
 import bean.dto.diet.DietQueryDto;

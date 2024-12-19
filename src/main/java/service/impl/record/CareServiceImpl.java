@@ -1,13 +1,13 @@
-package service.impl;
+package service.impl.record;
 
 import bean.dto.care.CareCreateDto;
 import bean.dto.care.CareQueryDto;
 import bean.dto.care.CareUpdateDto;
 import bean.pojo.Care;
 import bean.vo.CareQueryVo;
-import dao.CareDao;
-import dao.impl.CareDaoImpl;
-import service.CareService;
+import dao.record.CareDao;
+import dao.impl.record.CareDaoImpl;
+import service.record.CareService;
 
 import java.util.List;
 

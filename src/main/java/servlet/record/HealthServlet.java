@@ -1,4 +1,4 @@
-package servlet;
+package servlet.record;
 
 import bean.dto.health.HealthCreateDto;
 import bean.dto.health.HealthQueryDto;
@@ -9,8 +9,8 @@ import com.alibaba.fastjson.JSONObject;
 import commons.BaseServlet;
 import commons.GetJsonParamsUtils;
 import commons.Write;
-import service.HealthService;
-import service.impl.HealthServiceImpl;
+import service.record.HealthService;
+import service.impl.record.HealthServiceImpl;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;

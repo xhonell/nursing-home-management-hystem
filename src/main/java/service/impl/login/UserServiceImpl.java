@@ -1,10 +1,10 @@
-package service.impl;
+package service.impl.login;
 
 import bean.dto.login.ResetPasswordDto;
 import bean.pojo.User;
-import dao.UserDao;
-import dao.impl.UserDaoImpl;
-import service.UserService;
+import dao.login.UserDao;
+import dao.impl.login.UserDaoImpl;
+import service.login.UserService;
 
 /**
  * program: nursing-home-management-system

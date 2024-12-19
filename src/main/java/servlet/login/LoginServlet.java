@@ -1,4 +1,4 @@
-package servlet;
+package servlet.login;
 
 import bean.dto.login.ForgetPasswordDto;
 import bean.dto.login.LoginDto;
@@ -9,8 +9,8 @@ import commons.BaseServlet;
 import commons.EmailUtils;
 import commons.GetJsonParamsUtils;
 import commons.Write;
-import service.LoginService;
-import service.impl.LoginServiceImpl;
+import service.login.LoginService;
+import service.impl.login.LoginServiceImpl;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;

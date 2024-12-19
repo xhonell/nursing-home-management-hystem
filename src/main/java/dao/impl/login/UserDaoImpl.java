@@ -1,8 +1,8 @@
-package dao.impl;
+package dao.impl.login;
 
 import bean.pojo.User;
 import commons.DataSourceUtil;
-import dao.UserDao;
+import dao.login.UserDao;
 
 /**
  * program: nursing-home-management-system

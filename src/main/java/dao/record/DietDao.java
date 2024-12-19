@@ -1,4 +1,4 @@
-package dao;
+package dao.record;
 
 import bean.pojo.Diet;
 

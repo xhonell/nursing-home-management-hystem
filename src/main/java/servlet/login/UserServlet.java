@@ -1,4 +1,4 @@
-package servlet;
+package servlet.login;
 
 import bean.dto.login.ResetPasswordDto;
 import bean.pojo.User;
@@ -6,8 +6,8 @@ import commons.BaseServlet;
 import commons.FileUtils;
 import commons.GetJsonParamsUtils;
 import commons.Write;
-import service.UserService;
-import service.impl.UserServiceImpl;
+import service.login.UserService;
+import service.impl.login.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;

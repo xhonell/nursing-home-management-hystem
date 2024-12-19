@@ -1,4 +1,4 @@
-package servlet;
+package servlet.record;
 
 import bean.dto.diet.DietCreateDto;
 import bean.dto.diet.DietQueryDto;
@@ -8,8 +8,8 @@ import com.alibaba.fastjson.JSONObject;
 import commons.BaseServlet;
 import commons.GetJsonParamsUtils;
 import commons.Write;
-import service.DietService;
-import service.impl.DietServiceImpl;
+import service.record.DietService;
+import service.impl.record.DietServiceImpl;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;

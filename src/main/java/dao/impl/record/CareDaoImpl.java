@@ -1,8 +1,8 @@
-package dao.impl;
+package dao.impl.record;
 
 import bean.pojo.Care;
 import commons.DataSourceUtil;
-import dao.CareDao;
+import dao.record.CareDao;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package servlet;
+package servlet.record;
 
 import bean.dto.care.CareCreateDto;
 import bean.dto.care.CareQueryDto;
@@ -8,8 +8,8 @@ import com.alibaba.fastjson.JSONObject;
 import commons.BaseServlet;
 import commons.GetJsonParamsUtils;
 import commons.Write;
-import service.CareService;
-import service.impl.CareServiceImpl;
+import service.record.CareService;
+import service.impl.record.CareServiceImpl;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;

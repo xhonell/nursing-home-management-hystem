@@ -1,4 +1,4 @@
-package service;
+package service.record;
 
 import bean.dto.care.CareCreateDto;
 import bean.dto.care.CareQueryDto;

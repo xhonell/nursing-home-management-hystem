@@ -1,4 +1,4 @@
-package service.impl;
+package service.impl.record;
 
 import bean.dto.health.HealthCreateDto;
 import bean.dto.health.HealthQueryDto;
@@ -6,9 +6,9 @@ import bean.dto.health.HealthUpdateDto;
 import bean.pojo.Health;
 import bean.vo.HealthVo;
 import bean.vo.OlderVo;
-import dao.HealthDao;
-import dao.impl.HealthDaoImpl;
-import service.HealthService;
+import dao.record.HealthDao;
+import dao.impl.record.HealthDaoImpl;
+import service.record.HealthService;
 
 import java.util.List;
 
