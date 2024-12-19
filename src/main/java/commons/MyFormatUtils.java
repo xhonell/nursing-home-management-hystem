@@ -1,6 +1,7 @@
 package commons;
 
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -70,10 +71,12 @@ public class MyFormatUtils {
     public static Date toDate(String dateStr, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         sdf.setLenient(false);
-        try {
-            return sdf.parse(dateStr); // 返回 Date 对象
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (dateStr!=null){
+            try {
+                return sdf.parse(dateStr); // 返回 Date 对象
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -167,7 +170,7 @@ public class MyFormatUtils {
 
     /////////=============字符验证=====================///////////////////////////
 
-    public boolean isBank(String str) {//  null ""  ""
+    public static boolean isBank(String str) {//  null ""  ""
         return str == null || str.trim().length() == 0;
     }
 
@@ -181,7 +184,7 @@ public class MyFormatUtils {
      * @param str
      * @return
      */
-    public String trim(String str) {//
+    public static String trim(String str) {//
         return isBank(str) ? null : str.trim();
     }
 

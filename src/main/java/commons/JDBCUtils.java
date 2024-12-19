@@ -16,11 +16,11 @@ import java.util.Map;
  */
 public class JDBCUtils {
     //配置信息
-    private  static  String driverClassName="com.mysql.jdbc.Driver";
+    private  static  String driverClassName="com.mysql.cj.jdbc.Driver";
     //
-    private  static  String  url="jdbc:mysql://localhost:3306/school2?useSSL=false";
-    private  static  String  user="root";
-    private  static  String  password="123456";
+    private  static  String  url="jdbc:mysql://172.16.104.95:3306/nursing?useSSL=false";
+    private  static  String  user="other";
+    private  static  String  password="Hx1234568.";
 
     //对象
     //连接对象
