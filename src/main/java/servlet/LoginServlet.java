@@ -67,7 +67,7 @@ public class LoginServlet extends BaseServlet {
             Object user = req.getSession().getAttribute("user");
             Write.writeSuccess(resp, user);
         } else {
-            Write.writeFail(resp,"token失效");
+            Write.writeFail(resp,"登录过期，请重新登录！");
         }
     }
 
@@ -124,6 +124,12 @@ public class LoginServlet extends BaseServlet {
         Write.writeSuccess(resp,null, "验证码已发送，请注意查收！");
     }
 
+    /**
+     * 重置密码
+     *
+     * @param req   HttpServletRequest 对象，包含请求信息
+     * @param resp  HttpServletResponse 对象，用于返回响应信息
+     */
     public void reset(HttpServletRequest req, HttpServletResponse resp){
         ForgetPasswordDto forgetPasswordDto = GetJsonParamsUtils.receiveJsonToPojo(req, ForgetPasswordDto.class);
         Integer vCode = forgetPasswordDto.getVCode();
