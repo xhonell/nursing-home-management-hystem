@@ -3,11 +3,6 @@ package commons;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
 /**
  * com.gxa.utils.EmailUtils
  * User: hly
@@ -47,7 +42,7 @@ public class EmailUtils {
             //System.out.println("email"+email);
             mail.setSubject(title);//设置邮件的主题
             mail.setMsg("您好，" +
-                    "\n感谢您注册 [犇腾文化应用]。为了完成邮箱验证，请使用以下验证码：" +
+                    "\n感谢您使用 [犇腾文化应用]。为了完成邮箱验证，请使用以下验证码：" +
                     "\n验证码： " +context+
                     "\n验证码有效期为10分钟，请尽快输入并完成验证。" +
                     "\n如果您没有发起此操作，请忽略此邮件。\n祝您使用愉快！" +

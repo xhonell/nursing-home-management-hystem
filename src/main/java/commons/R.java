@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * @AllArgsConstructor : 也是lombok提供的注释，表示自动生成全参的构造方法
@@ -72,6 +73,62 @@ public class R<T> implements Serializable {
         r.setMsg(msg);
         r.setData(null);
         return r;
+    }
+
+    public static R ok(){
+        R r = new R();
+        r.code=200;
+        r.msg="成功";
+        return r;
+    }
+
+    public static <T> R ok(String msg){
+        R r = new R();
+        r.code=200;
+        r.msg=msg;
+        return r;
+    }
+
+    public static <T> R ok(T data){
+        R r = new R();
+        r.code=200;
+        r.msg="成功";
+        r.data=data;
+        return r;
+    }
+
+    public static <T> R ok(String msg,T data){
+        R r = new R();
+        r.code=200;
+        r.msg=msg;
+        r.data=data;
+        return r;
+    }
+
+    public static R error(){
+        R r = new R();
+        r.code=-1;
+        r.msg="失败";
+        return r;
+    }
+
+    public static R error(String msg){
+        R r = new R();
+        r.code=-1;
+        r.msg=msg;
+        return r;
+    }
+
+    public R addData(String key,Object value){
+        if (this.data==null){
+            this.data=(T)new HashMap<>();
+            ((HashMap<String,Object>)this.data).put(key,value);
+        }else if (this.data instanceof HashMap){
+            ((HashMap<String,Object>)this.data).put(key,value);
+        }else {
+            throw new RuntimeException("R结果集设置错误");
+        }
+        return this;
     }
 
 }
