@@ -12,7 +12,7 @@
     <servlet-version>3.1.0</servlet-version>
     <junit-version>3.8.1</junit-version>
     <lombok-version>1.18.30</lombok-version>
-    <fastjson-version>1.2.83</fastjson-version>
+    <fastjson-version>2.0.29</fastjson-version>
     <dbutils-version>1.7</dbutils-version>
     <email-version>1.5</email-version>
     <poi-version>4.1.2</poi-version>
@@ -91,5 +91,15 @@
   </dependencies>
   <build>
     <finalName>nursing-home-management-system</finalName>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                  <source>8</source>
+                  <target>8</target>
+              </configuration>
+          </plugin>
+      </plugins>
   </build>
 </project>
