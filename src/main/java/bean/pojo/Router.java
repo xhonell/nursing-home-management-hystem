@@ -13,7 +13,7 @@ public class Router {
   private String pageName;
   private String pageTitle;
   private String pageIcon;
+  private String pageHidden;
   private long pageParentId;
   private List<Router> pageChildren;
-
 }

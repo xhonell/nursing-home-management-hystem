@@ -31,9 +31,21 @@ public class AdminHandleDaoImpl implements AdminHandleDao {
         return DataSourceUtil.queryToBeanListHandler(sql, DoctorLeave.class);
     }
 
+    /**
+     * 更新医生的请假状态
+     *
+     * @param params 参数数组，包含医生的请假状态和请假ID
+     * @return 更新影响的行数，如果更新成功则返回影响的行数，否则返回0
+     */
     @Override
     public int updateDoctorLeave(Object[] params) {
         String sql = "update doctorLeave set leaveState=? where leaveId=?";
+        return DataSourceUtil.update(sql, params);
+    }
+
+    @Override
+    public int updateOlderLeave(Object[] params) {
+        String sql = "update olderLeave set leaveState=? where leaveId=?";
         return DataSourceUtil.update(sql, params);
     }
 }

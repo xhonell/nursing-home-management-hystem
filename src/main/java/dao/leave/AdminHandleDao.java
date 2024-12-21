@@ -16,4 +16,6 @@ public interface AdminHandleDao {
     List<DoctorLeave> handleDoctorLeave();
 
     int updateDoctorLeave(Object[] params);
+
+    int updateOlderLeave(Object[] params);
 }

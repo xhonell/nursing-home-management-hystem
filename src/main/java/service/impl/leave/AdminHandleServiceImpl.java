@@ -27,8 +27,25 @@ public class AdminHandleServiceImpl implements AdminHandleService {
         return adminHandleDao.handleDoctorLeave();
     }
 
+    /**
+     * 更新医生请假信息
+     *
+     * @param params 包含医生请假信息的参数数组，通常包括请假状态ID和请假记录ID等
+     * @return 如果更新成功返回true，否则返回false
+     */
     @Override
     public boolean updateDoctorLeave(Object[] params) {
         return adminHandleDao.updateDoctorLeave(params) > 0;
+    }
+
+    /**
+     * 更新旧版请假信息
+     *
+     * @param params 包含旧版请假信息的参数数组，通常包括请假状态ID、请假开始时间、请假结束时间、请假原因等
+     * @return 如果更新成功返回true，否则返回false
+     */
+    @Override
+    public boolean updateOlderLeave(Object[] params) {
+        return adminHandleDao.updateOlderLeave(params) > 0;
     }
 }

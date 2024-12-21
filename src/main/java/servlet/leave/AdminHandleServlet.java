@@ -40,6 +40,12 @@ public class AdminHandleServlet extends BaseServlet {
         }
     }
 
+    /**
+     * 更新医生请假状态
+     *
+     * @param req  HttpServletRequest对象，包含请求信息
+     * @param resp HttpServletResponse对象，用于向客户端返回响应
+     */
     public void updateDoctorLeave(HttpServletRequest req, HttpServletResponse resp){
         long leaveId = Integer.parseInt(req.getParameter("leaveId"));
         String leaveState = req.getParameter("leaveState");
@@ -48,6 +54,19 @@ public class AdminHandleServlet extends BaseServlet {
 
         if (isSuccess){
             Write.writeSuccess(resp, "操作成功");
+        } else {
+            Write.writeFail(resp, "操作失败");
+        }
+    }
+
+    public void updateOlderLeave(HttpServletRequest req, HttpServletResponse resp){
+        long leaveId = Integer.parseInt(req.getParameter("leaveId"));
+        String leaveState = req.getParameter("leaveState");
+        Object[] params = {leaveState, leaveId};
+        boolean isSuccess = adminHandleService.updateOlderLeave(params);
+
+        if (isSuccess){
+            Write.writeSuccess(resp, null,"操作成功");
         } else {
             Write.writeFail(resp, "操作失败");
         }
