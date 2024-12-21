@@ -1,10 +1,14 @@
 package bean.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Router {
 
   private long pageId;
@@ -13,7 +17,7 @@ public class Router {
   private String pageName;
   private String pageTitle;
   private String pageIcon;
-  private String pageHidden;
   private long pageParentId;
   private List<Router> pageChildren;
+
 }

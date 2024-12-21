@@ -22,114 +22,190 @@ public class VisitorDaoImpl implements VisitorDao {
     private JDBCUtils jdbcUtils = new JDBCUtils();
 
     /**
-     * 插入访客信息到数据库
+     * 插入访客记录
      *
-     * 该方法使用JDBC连接数据库，并执行SQL插入语句，将访客对象中的信息插入到visitor表中
-     *
-     * @param visitor 访客对象，包含需要插入的访客信息，包括访客ID、访客姓名、访客卡号、访问时间和访问原因
+     * @param visitor 访客对象
+     * @return 影响的行数
      */
     @Override
-    public void insertVisitor(Visitor visitor) {
-        // 定义SQL插入语句，使用占位符(?)来代替实际的参数值，以防止SQL注入并提高代码可读性
-        String sql = "INSERT INTO visitor (VisitorName, VisitorCard, VisitorTime, VisitorReason) VALUES (?, ?, ?, ?)";
-        // 创建参数数组，将访客对象中的属性值填入数组，对应SQL语句中的占位符
+
+    public int insertVisitor(Visitor visitor) {
+        String sql = "INSERT INTO visitor (visitorName, visitorCard, visitorTime, visitorReason) VALUES (?, ?, ?, ?)";
         Object[] params = {visitor.getVisitorName(), visitor.getVisitorCard(), visitor.getVisitorTime(), visitor.getVisitorReason()};
-        // 执行SQL更新操作，将访客信息插入到数据库中
-        jdbcUtils.update(sql, params);
+        return jdbcUtils.update(sql, params); // 返回插入操作的结果
     }
 
     /**
-     * 更新访客信息
+     * 插入访客记录（重载方法）
      *
-     * 该方法使用JDBC连接数据库，并执行SQL更新语句，根据访客ID更新访客对象中的信息
-     *
-     * @param visitor 访客对象，包含需要更新的访客信息，包括访客ID、访客姓名、访客卡号、访问时间和访问原因
+     * @param params 访客参数数组
+     * @return 影响的行数
      */
     @Override
-    public void updateVisitor(Visitor visitor) {
-        // 定义SQL更新语句，使用占位符(?)来代替实际的参数值，以防止SQL注入并提高代码可读性
-        String sql = "UPDATE visitor SET VisitorName = ?, VisitorCard = ?, VisitorTime = ?, VisitorReason = ? WHERE VisitorId = ?";
-        // 创建参数数组，将访客对象中的属性值填入数组，对应SQL语句中的占位符
+    public int insertVisitor(Object[] params) {
+        String sql = "INSERT INTO visitor (visitorName, visitorCard, visitorTime, visitorReason) VALUES (?, ?, ?, ?)";
+        return jdbcUtils.update(sql, params); // 返回插入操作的结果
+    }
+
+    /**
+     * 更新访客记录
+     *
+     * @param visitor 访客对象
+     * @return 影响的行数
+     */
+    @Override
+    public int updateVisitor(Visitor visitor) {
+        String sql = "UPDATE visitor SET visitorName = ?, visitorCard = ?, visitorTime = ?, visitorReason = ? WHERE visitorId = ?";
         Object[] params = {visitor.getVisitorName(), visitor.getVisitorCard(), visitor.getVisitorTime(), visitor.getVisitorReason(), visitor.getVisitorId()};
-        // 执行SQL更新操作，更新数据库中的访客信息
-        jdbcUtils.update(sql, params);
+        return jdbcUtils.update(sql, params);
     }
 
     /**
-     * 根据访客ID删除访客信息
+     * 更新访客记录（重载方法）
      *
-     * 该方法使用JDBC连接数据库，并执行SQL删除语句，根据访客ID删除对应的访客记录
-     *
-     * @param visitorId 访客ID，用于指定要删除的访客记录
+     * @param params 访客参数数组
+     * @return 影响的行数
      */
     @Override
-    public void deleteVisitor(Long visitorId) {
-        // 定义SQL删除语句，使用占位符(?)来代替实际的参数值，以防止SQL注入并提高代码可读性
-        String sql = "DELETE FROM visitor WHERE VisitorId = ?";
-        // 创建参数数组，将访客ID填入数组，对应SQL语句中的占位符
-        Object[] params = {visitorId};
-        // 执行SQL更新操作，删除数据库中的访客记录
-        jdbcUtils.update(sql, params);
+    public int updateVisitor(Object[] params) {
+        String sql = "UPDATE visitor SET visitorName = ?, visitorCard = ?, visitorTime = ?, visitorReason = ? WHERE visitorId = ?";
+        return jdbcUtils.update(sql, params);
     }
 
     /**
-     * 根据访客ID获取访客信息
+     * 删除访客记录
      *
-     * 该方法使用JDBC连接数据库，并执行SQL查询语句，根据访客ID查询对应的访客记录
+     * @param visitorId 访客ID
+     * @return 影响的行数
+     */
+    @Override
+    public int deleteVisitor(Long visitorId) {
+        String sql = "DELETE FROM visitor WHERE visitorId = ?";
+        Object[] params = {visitorId};
+        return jdbcUtils.update(sql, params);
+    }
+
+    /**
+     * 根据ID获取访客记录
      *
-     * @param visitorId 访客ID，用于指定要查询的访客记录
-     * @return 返回与指定访客ID匹配的访客对象；如果没有找到匹配的访客记录，则返回null
+     * @param visitorId 访客ID
+     * @return 访客对象
      */
     @Override
     public Visitor getVisitorById(Long visitorId) {
-        // 定义SQL查询语句，使用占位符(?)来代替实际的参数值，以防止SQL注入并提高代码可读性
-        String sql = "SELECT * FROM visitor WHERE VisitorId = ?";
-        // 创建参数数组，将访客ID填入数组，对应SQL语句中的占位符
+        String sql = "SELECT * FROM visitor WHERE visitorId = ?";
         Object[] params = {visitorId};
-        // 执行SQL查询操作，获取查询结果
         List<Map<String, Object>> result = jdbcUtils.select(sql, params);
-        // 检查查询结果是否为空，如果为空则返回null
         if (result.isEmpty()) {
             return null;
         }
-        // 获取查询结果中的第一条记录
         Map<String, Object> row = result.get(0);
-        // 根据查询结果创建访客对象并返回
         return new Visitor(
-                (Long) row.get("VisitorId"),
-                (String) row.get("VisitorName"),
-                (String) row.get("VisitorCard"),
-                (Date) row.get("VisitorTime"),
-                (String) row.get("VisitorReason")
+                ((Number) row.get("visitorId")).longValue(), // 使用 Number 类进行安全转换
+                (String) row.get("visitorName"),
+                (String) row.get("visitorCard"),
+                (Date) row.get("visitorTime"),
+                (String) row.get("visitorReason")
         );
     }
 
     /**
-     * 获取所有访客信息
+     * 获取所有访客记录
      *
-     * 该方法使用JDBC连接数据库，并执行SQL查询语句，获取visitor表中的所有访客记录
-     *
-     * @return 返回包含所有访客对象的列表
+     * @return 访客对象列表
      */
     @Override
     public List<Visitor> getAllVisitors() {
-        // 定义SQL查询语句，用于获取visitor表中的所有记录
         String sql = "SELECT * FROM visitor";
-        // 执行SQL查询操作，获取查询结果
         List<Map<String, Object>> results = jdbcUtils.select(sql);
-        // 创建一个空的访客对象列表，用于存储查询结果
         List<Visitor> visitors = new ArrayList<>();
-        // 遍历查询结果，将每一条记录转换为访客对象并添加到列表中
         for (Map<String, Object> row : results) {
             visitors.add(new Visitor(
-                    (Long) row.get("VisitorId"),
-                    (String) row.get("VisitorName"),
-                    (String) row.get("VisitorCard"),
-                    (Date) row.get("VisitorTime"),
-                    (String) row.get("VisitorReason")
+                    ((Number) row.get("visitorId")).longValue(), // 使用 Number 类进行安全转换
+                    (String) row.get("visitorName"),
+                    (String) row.get("visitorCard"),
+                    (Date) row.get("visitorTime"),
+                    (String) row.get("visitorReason")
             ));
         }
-        // 返回包含所有访客对象的列表
+        return visitors;
+    }
+
+    /**
+     * 获取符合条件的访客数量
+     *
+     * @param params 查询参数数组
+     * @return 符合条件的访客数量
+     */
+    @Override
+    public Long listCount(Object[] params) {
+        StringBuilder sqlBuilder = new StringBuilder("SELECT COUNT(*) AS total FROM visitor");
+        List<Object> paramList = new ArrayList<>();
+
+        if (params[0] != null) {
+            sqlBuilder.append(" WHERE visitorName LIKE ?");
+            paramList.add(params[0]);
+        }
+        if (params[1] != null) {
+            if (sqlBuilder.indexOf("WHERE") == -1) {
+                sqlBuilder.append(" WHERE ");
+            } else {
+                sqlBuilder.append(" AND ");
+            }
+            sqlBuilder.append("DATE(visitorTime) = ?");
+            paramList.add(params[1]);
+        }
+
+        List<Map<String, Object>> result = jdbcUtils.select(sqlBuilder.toString(), paramList.toArray());
+        if (result.isEmpty()) {
+            return 0L;
+        }
+        Map<String, Object> row = result.get(0);
+        return ((Number) row.get("total")).longValue();
+    }
+
+    /**
+     * 分页查询访客记录
+     *
+     * @param params 查询参数数组
+     * @return 访客对象列表
+     */
+    @Override
+    public List<Visitor> list(Object[] params) {
+        StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM visitor");
+        List<Object> paramList = new ArrayList<>();
+
+        if (params[0] != null) {
+            sqlBuilder.append(" WHERE visitorName LIKE ?");
+            paramList.add(params[0]);
+        }
+        if (params[1] != null) {
+            if (sqlBuilder.indexOf("WHERE") == -1) {
+                sqlBuilder.append(" WHERE ");
+            } else {
+                sqlBuilder.append(" AND ");
+            }
+            sqlBuilder.append("DATE(visitorTime) = ?");
+            paramList.add(params[1]);
+        }
+
+        sqlBuilder.append(" LIMIT ?, ?");
+
+
+        paramList.add(params[2]);
+        paramList.add(params[3]);
+
+        List<Map<String, Object>> results = jdbcUtils.select(sqlBuilder.toString(), paramList.toArray());
+        List<Visitor> visitors = new ArrayList<>();
+        for (Map<String, Object> row : results) {
+            visitors.add(new Visitor(
+                    ((Number) row.get("visitorId")).longValue(), // 使用 Number 类进行安全转换
+                    (String) row.get("visitorName"),
+                    (String) row.get("visitorCard"),
+                    (Date) row.get("visitorTime"),
+                    (String) row.get("visitorReason")
+            ));
+        }
         return visitors;
     }
 }

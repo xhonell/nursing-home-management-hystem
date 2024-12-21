@@ -3,7 +3,6 @@ package bean.dto;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
-import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -21,7 +20,7 @@ public class DoctorFindByPage extends Page{
     private Integer positionId;
     private String doctorPopularity;
     @JSONField(format = "HH:mm:ss")
-    private LocalTime doctorStartTime;
+    private Date doctorStartTime;
     @JSONField(format = "HH:mm:ss")
-    private LocalTime doctorEndTime;
+    private Date doctorEndTime;
 }

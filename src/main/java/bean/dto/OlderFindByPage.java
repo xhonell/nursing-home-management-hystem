@@ -4,8 +4,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.security.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -22,9 +20,7 @@ public class OlderFindByPage extends Page{
     @JSONField(format = "yyyy-MM-dd")
     private Date olderBirth;
     private String olderHealth;
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime olderStartTime;
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime olderEndTime;
+    private Timestamp olderStartTime;
+    private Timestamp olderEndTime;
     private Integer gradeId;
 }

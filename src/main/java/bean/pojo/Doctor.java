@@ -3,8 +3,6 @@ package bean.pojo;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -19,9 +17,9 @@ public class Doctor {
   private String doctorIntroduction;
   private String doctorExperience;
   @JSONField(format = "HH:mm:ss")
-  private LocalTime doctorStartTime;
+  private Date doctorStartTime;
   @JSONField(format = "HH:mm:ss")
-  private LocalTime doctorEndTime;
+  private Date doctorEndTime;
   private String doctorPopularity;
   private Integer positionId;
 }

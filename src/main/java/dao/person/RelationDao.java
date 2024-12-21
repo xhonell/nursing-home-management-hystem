@@ -1,12 +1,5 @@
 package dao.person;
 
-import bean.dto.RelationAndOlder;
-import bean.dto.RelationFindByPage;
-import bean.pojo.Relation;
-import bean.vo.RelationList;
-
-import java.util.List;
-
 /**
  * User: zhongjing
  * Date: 2024/12/17
@@ -14,16 +7,4 @@ import java.util.List;
  * Version: V1.0
  */
 public interface RelationDao {
-
-    Long findTotal(RelationFindByPage relationFindByPage);
-
-    List<RelationList> findByPage(RelationFindByPage relationFindByPage);
-
-    List<Relation> findAllRelationship();
-
-    Boolean addRelation(RelationAndOlder relationAndOlder);
-
-    Boolean updateRelation(RelationAndOlder relationAndOlder);
-
-    Boolean deleteRelation(Integer relationId);
 }

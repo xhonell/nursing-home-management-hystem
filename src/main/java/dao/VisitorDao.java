@@ -13,40 +13,62 @@ import java.util.List;
  * Version: V1.0
  */
 public interface VisitorDao {
-
     /**
-     * 插入一个新的访客记录
+     * 插入访客记录
      *
-     * @param visitor 要插入的访客对象
+     * @param visitor 访客对象
+     * @return 影响的行数
      */
-    void insertVisitor(Visitor visitor);
+    int insertVisitor(Object[] visitor);
 
     /**
-     * 更新一个已存在的访客记录
+     * 更新访客记录
      *
-     * @param visitor 要更新的访客对象
+     * @param visitor 访客对象
+     * @return 影响的行数
      */
-    void updateVisitor(Visitor visitor);
+    int updateVisitor(Object[] visitor);
+
+    int insertVisitor(Visitor visitor);
+
+    int updateVisitor(Visitor visitor);
 
     /**
-     * 删除一个访客记录
-     *
-     * @param visitorId 要删除的访客ID
-     */
-    void deleteVisitor(Long visitorId);
-
-    /**
-     * 根据访客ID获取访客记录
+     * 删除访客记录
      *
      * @param visitorId 访客ID
-     * @return 返回对应的访客对象，如果不存在则返回null
+     * @return 影响的行数
+     */
+    int deleteVisitor(Long visitorId);
+
+    /**
+     * 根据ID获取访客记录
+     *
+     * @param visitorId 访客ID
+     * @return 访客对象
      */
     Visitor getVisitorById(Long visitorId);
 
     /**
      * 获取所有访客记录
      *
-     * @return 返回访客对象的列表
+     * @return 访客对象列表
      */
     List<Visitor> getAllVisitors();
+
+    /**
+     * 获取符合条件的访客数量
+     *
+     * @param params 查询参数数组
+     * @return 符合条件的访客数量
+     */
+    Long listCount(Object[] params);
+
+    /**
+     * 分页查询访客记录
+     *
+     * @param params 查询参数数组
+     * @return 访客对象列表
+     */
+    List<Visitor> list(Object[] params);
 }
