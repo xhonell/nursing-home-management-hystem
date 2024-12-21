@@ -1,17 +1,15 @@
 package servlet;
 
-import bean.dto.equit.EquipCreateDto;
-import bean.dto.equit.EquipUpdateDto;
 import bean.dto.grade.GradeCreateDto;
 import bean.dto.grade.GradeUpdateDto;
-import bean.pojo.Equip;
 import bean.pojo.Grade;
+import bean.vo.GradeList;
+import com.alibaba.fastjson.JSON;
 import commons.BaseServlet;
 import commons.GetJsonParamsUtils;
+import commons.R;
 import commons.Write;
-import service.EquipService;
 import service.GradeService;
-import service.impl.EquipServiceImpl;
 import service.impl.GradeServiceImpl;
 
 import javax.servlet.ServletException;
@@ -19,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/grade/*")
@@ -75,5 +74,16 @@ public class GradeServlet extends BaseServlet {
         } else {
             Write.writeFail(resp,"更新失败");
         }
+    }
+
+    public void findAllGradeList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        service.person.GradeService gradeService=new service.impl.person.GradeServiceImpl();
+        List<GradeList> gradeList=gradeService.findAllGradeList();
+        R r=gradeList.size()>0? R.ok().addData("gradeList",gradeList):R.error("没有任何医护等级信息");
+        String result = JSON.toJSONString(r);
+        PrintWriter writer = response.getWriter();
+        writer.write(result);
+        writer.flush();
+        writer.close();
     }
 }

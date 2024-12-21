@@ -1,12 +1,9 @@
 package service.impl;
 
-import bean.dto.diet.DietUpdateDto;
 import bean.dto.equit.EquipCreateDto;
 import bean.dto.equit.EquipUpdateDto;
 import bean.pojo.Equip;
-import dao.DietDao;
 import dao.EquipDao;
-import dao.impl.DietDaoImpl;
 import dao.impl.EquipDaoImpl;
 import service.EquipService;
 

@@ -1,24 +1,18 @@
 package servlet;
 
-import bean.dto.diet.DietCreateDto;
-import bean.dto.diet.DietUpdateDto;
 import bean.dto.equit.EquipCreateDto;
 import bean.dto.equit.EquipUpdateDto;
 import bean.pojo.Equip;
 import commons.BaseServlet;
 import commons.GetJsonParamsUtils;
 import commons.Write;
-import service.DietService;
 import service.EquipService;
-import service.impl.DietServiceImpl;
 import service.impl.EquipServiceImpl;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet("/equip/*")
