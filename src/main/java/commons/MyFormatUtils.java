@@ -4,7 +4,10 @@ package commons;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -25,6 +28,7 @@ public class MyFormatUtils {
      */
     private static final String PATTERN_DATE = "yyyy-MM-dd";
     private static final String PATTERN_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+    private static final String PATTERN_TIME="HH:mm:ss";
     private static final String PATTERN_DATE_CN = "yyyy年MM月dd日";
     private static final String PATTERN_DATE_TIME_CN = "yyyy年MM月dd日 HH:mm:ss";
 
@@ -76,6 +80,40 @@ public class MyFormatUtils {
                 return sdf.parse(dateStr); // 返回 Date 对象
             } catch (ParseException e) {
                 e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 字符串转换为"yyyy-MM-dd HH:mm:ss"
+     * @param str
+     * @return
+     */
+    public static LocalDateTime toDateTime(String str){
+        DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
+        if (str!=null){
+            try {
+                return LocalDateTime.parse(str,dateTimeFormatter);
+            }catch (DateTimeException e){
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 字符串转换为“HH:mm:ss”
+     * @param str
+     * @return
+     */
+    public static LocalTime toTime(String str){
+        DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern(PATTERN_TIME);
+        if (str!=null){
+            try {
+                return LocalTime.parse(str,dateTimeFormatter);
+            }catch (DateTimeException e){
+                return null;
             }
         }
         return null;

@@ -22,6 +22,7 @@ import javax.servlet.annotation.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -41,8 +42,8 @@ public class DoctorServlet extends BaseServlet {
         Integer departmentId = MyFormatUtils.toInteger(request.getParameter("departmentId"));
         Integer positionId = MyFormatUtils.toInteger(request.getParameter("positionId"));
         String doctorPopularity = MyFormatUtils.trim(request.getParameter("doctorPopularity"));
-        Date doctorStartTime = MyFormatUtils.toDate(request.getParameter("doctorStartTime"));
-        Date doctorEndTime = MyFormatUtils.toDate(request.getParameter("doctorEndTime"));
+        LocalTime doctorStartTime = MyFormatUtils.toTime(request.getParameter("doctorStartTime"));
+        LocalTime doctorEndTime = MyFormatUtils.toTime(request.getParameter("doctorEndTime"));
         Integer page=MyFormatUtils.toInteger(request.getParameter("page"));
         Integer limit=MyFormatUtils.toInteger(request.getParameter("limit"));
         DoctorFindByPage doctorFindByPage=new DoctorFindByPage();

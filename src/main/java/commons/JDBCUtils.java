@@ -18,7 +18,7 @@ public class JDBCUtils {
     //配置信息
     private  static  String driverClassName="com.mysql.cj.jdbc.Driver";
     //
-    private  static  String  url="jdbc:mysql://172.16.104.95:3306/nursing?useSSL=false";
+    private  static  String  url="jdbc:mysql://192.168.1.2/nursing?serverTimezone=Asia/Shanghai&useSSL=false";
     private  static  String  user="other";
     private  static  String  password="Hx1234568.";
 

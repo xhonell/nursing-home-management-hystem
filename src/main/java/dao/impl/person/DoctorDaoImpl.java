@@ -29,11 +29,11 @@ public class DoctorDaoImpl implements DoctorDao {
                 "left join department de on de.departmentId=p.departmentId where 1=1 ");
         List<Object> parameters=new ArrayList<>();
         if (doctorFindByPage.getDoctorName()!=null){
-            sql.append("and d.doctorName like ('%',?,'%') ");
+            sql.append("and d.doctorName like concat('%',?,'%') ");
             parameters.add(doctorFindByPage.getDoctorName());
         }
         if (doctorFindByPage.getDoctorSex()!=null){
-            sql.append("and d.doctorSex='?' ");
+            sql.append("and d.doctorSex=? ");
             parameters.add(doctorFindByPage.getDoctorSex());
         }
         if (doctorFindByPage.getDoctorAge()!=null){
@@ -53,11 +53,11 @@ public class DoctorDaoImpl implements DoctorDao {
             parameters.add(doctorFindByPage.getDoctorPopularity());
         }
         if (doctorFindByPage.getDoctorStartTime()!=null){
-            sql.append("and d.doctorStartTime='?' ");
+            sql.append("and d.doctorStartTime<=? ");
             parameters.add(doctorFindByPage.getDoctorStartTime());
         }
         if (doctorFindByPage.getDoctorEndTime()!=null){
-            sql.append("and d.doctorEndTime='?' ");
+            sql.append("and d.doctorEndTime>=? ");
             parameters.add(doctorFindByPage.getDoctorEndTime());
         }
         List<Map<String, Object>> list = jdbcUtils.select(sql.toString(), parameters.toArray());
@@ -77,11 +77,11 @@ public class DoctorDaoImpl implements DoctorDao {
                 "left join department de on de.departmentId=p.departmentId where 1=1 ");
         List<Object> parameters=new ArrayList<>();
         if (doctorFindByPage.getDoctorName()!=null){
-            sql.append("and d.doctorName like ('%',?,'%') ");
+            sql.append("and d.doctorName like concat('%',?,'%') ");
             parameters.add(doctorFindByPage.getDoctorName());
         }
         if (doctorFindByPage.getDoctorSex()!=null){
-            sql.append("and d.doctorSex='?' ");
+            sql.append("and d.doctorSex=? ");
             parameters.add(doctorFindByPage.getDoctorSex());
         }
         if (doctorFindByPage.getDoctorAge()!=null){
@@ -97,15 +97,15 @@ public class DoctorDaoImpl implements DoctorDao {
             parameters.add(doctorFindByPage.getPositionId());
         }
         if (doctorFindByPage.getDoctorPopularity()!=null){
-            sql.append("and d.doctorPopularity='?' ");
+            sql.append("and d.doctorPopularity=? ");
             parameters.add(doctorFindByPage.getDoctorPopularity());
         }
         if (doctorFindByPage.getDoctorStartTime()!=null){
-            sql.append("and d.doctorStartTime like ('%',?,'%') ");
+            sql.append("and d.doctorStartTime<=? ");
             parameters.add(doctorFindByPage.getDoctorStartTime());
         }
         if (doctorFindByPage.getDoctorEndTime()!=null){
-            sql.append("and d.doctorEndTime like ('%',?,'%') ");
+            sql.append("and d.doctorEndTime>=? ");
             parameters.add(doctorFindByPage.getDoctorEndTime());
         }
         sql.append("order by d.doctorId limit "+(doctorFindByPage.getPage()-1)*doctorFindByPage.getLimit()+","+doctorFindByPage.getLimit());
