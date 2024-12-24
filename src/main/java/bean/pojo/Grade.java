@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Grade {
-  private Integer gradeId;
+  private long gradeId;
   private String gradeName;
   private String gradeContent;
   private double gradeCharge;
