@@ -1,5 +1,6 @@
 package service.echars;
 
+import bean.pojo.Fee;
 import bean.vo.EcharsAgeVo;
 
 import java.util.List;
@@ -14,4 +15,8 @@ import java.util.List;
  **/
 public interface EcharsService {
     List<EcharsAgeVo> getEcharsAge();
+
+    Fee getArrears(Integer relationId);
+
+    boolean setArrears(Integer relationId);
 }

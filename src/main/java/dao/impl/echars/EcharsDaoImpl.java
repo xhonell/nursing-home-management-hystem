@@ -1,5 +1,6 @@
 package dao.impl.echars;
 
+import bean.pojo.Fee;
 import bean.vo.EcharsAgeVo;
 import commons.DataSourceUtil;
 import dao.echars.EcharsDao;
@@ -33,5 +34,20 @@ public class EcharsDaoImpl implements EcharsDao {
                 " GROUP BY name " +
                 " ORDER BY name ";
         return DataSourceUtil.queryToBeanListHandler(sql, EcharsAgeVo.class);
+    }
+
+    @Override
+    public Fee getArrears(Integer relationId) {
+        String sql = "select fee.* from fee " +
+                "left join relation on relation.olderId = fee.olderId " +
+                "where relation.relationId = ?" ;
+        return DataSourceUtil.queryToBeanHandler(sql, Fee.class, relationId);
+    }
+
+    @Override
+    public int setArrears(Integer relationId) {
+        String sql = "update fee set feeState = '已支付' " +
+                "where feeId = ?";
+        return DataSourceUtil.update(sql, relationId);
     }
 }
