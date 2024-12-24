@@ -51,7 +51,7 @@ public class UserServlet extends BaseServlet {
         String suffix = FileUtils.getSuffix(submittedFileName);
         String newName = (UUID.randomUUID().toString().replaceAll("-","") + suffix);
         String newPath = realPath +"/" + newName;
-        String ServerPath = "http://127.0.0.1:8080/img/avatar/" + newName;
+        String ServerPath = "http://172.16.104.95:8080/img/avatar/" + newName;
 
         boolean isSuccess = userService.updateAvatar(user.getRoleId(), ServerPath);
 
