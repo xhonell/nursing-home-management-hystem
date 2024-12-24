@@ -1,5 +1,6 @@
 package dao.impl.person;
 
+
 import bean.dto.RelationAndOlder;
 import bean.dto.RelationFindByPage;
 import bean.pojo.Older;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * User: zhongjing
  * Date: 2024/12/17
@@ -20,6 +22,7 @@ import java.util.Map;
  * Version: V1.0
  */
 public class RelationDaoImpl implements RelationDao {
+
     JDBCUtils jdbcUtils=new JDBCUtils();
     DBHelper dbHelper=new DBHelper();
     @Override
@@ -109,4 +112,5 @@ public class RelationDaoImpl implements RelationDao {
         int row = dbHelper.update(sql, relationId);
         return row>0?true:false;
     }
+
 }

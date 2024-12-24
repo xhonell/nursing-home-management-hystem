@@ -1,5 +1,6 @@
 package service.impl.echars;
 
+import bean.pojo.Fee;
 import bean.vo.EcharsAgeVo;
 import dao.echars.EcharsDao;
 import dao.impl.echars.EcharsDaoImpl;
@@ -20,5 +21,15 @@ public class EcharsServiceImpl implements EcharsService {
     @Override
     public List<EcharsAgeVo> getEcharsAge() {
         return echarsDao.getEcharsAge();
+    }
+
+    @Override
+    public Fee getArrears(Integer relationId) {
+        return echarsDao.getArrears(relationId);
+    }
+
+    @Override
+    public boolean setArrears(Integer relationId) {
+        return echarsDao.setArrears(relationId) > 0;
     }
 }

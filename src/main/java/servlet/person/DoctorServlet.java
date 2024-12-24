@@ -5,12 +5,16 @@ package servlet.person; /**
  * Version: V1.0
  */
 
+import bean.dto.DetailFindByPage;
+import bean.dto.DoctorDtos;
 import bean.dto.DoctorFindByPage;
 import bean.pojo.Doctor;
+import bean.vo.DetailList;
 import bean.vo.DoctorList;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import commons.BaseServlet;
+import commons.GetJsonParamsUtils;
 import commons.MyFormatUtils;
 import commons.R;
 import service.impl.person.DoctorServiceImpl;
@@ -23,8 +27,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet("/doctor/*")
 public class DoctorServlet extends BaseServlet {
@@ -108,6 +115,67 @@ public class DoctorServlet extends BaseServlet {
         DoctorService doctorService=new DoctorServiceImpl();
         Boolean t=doctorService.deleteDoctor(doctor);
         R r=t?R.ok():R.error("删除失败");
+        String result = JSON.toJSONString(r);
+        PrintWriter writer = response.getWriter();
+        writer.write(result);
+        writer.flush();
+        writer.close();
+    }
+
+    public void deleteDoctors(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Object[] object = parameterMap.get("doctorIds[]");
+//        DoctorDtos doctorDtos = GetJsonParamsUtils.receiveJsonToPojo(request, DoctorDtos.class);
+        DoctorService doctorService=new DoctorServiceImpl();
+        Boolean t=doctorService.deleteDoctors(object);
+        R r=t?R.ok():R.error("删除失败");
+        String result = JSON.toJSONString(r);
+        PrintWriter writer = response.getWriter();
+        writer.write(result);
+        writer.flush();
+        writer.close();
+    }
+
+    public  void detailByPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String doctorName = MyFormatUtils.trim(request.getParameter("doctorName"));
+        String doctorSex = MyFormatUtils.trim(request.getParameter("doctorSex"));
+        Integer doctorAge = MyFormatUtils.toInteger(request.getParameter("doctorAge"));
+        Integer departmentId = MyFormatUtils.toInteger(request.getParameter("departmentId"));
+        Integer positionId = MyFormatUtils.toInteger(request.getParameter("positionId"));
+        String doctorPopularity = MyFormatUtils.trim(request.getParameter("doctorPopularity"));
+        Integer page=MyFormatUtils.toInteger(request.getParameter("page"));
+        Integer limit=MyFormatUtils.toInteger(request.getParameter("limit"));
+        DetailFindByPage detailFindByPage=new DetailFindByPage();
+        detailFindByPage.setDoctorName(doctorName);
+        detailFindByPage.setDoctorSex(doctorSex);
+        detailFindByPage.setDoctorAge(doctorAge);
+        detailFindByPage.setDepartmentId(departmentId);
+        detailFindByPage.setPositionId(positionId);
+        detailFindByPage.setDoctorPopularity(doctorPopularity);
+        detailFindByPage.setPage(page);
+        detailFindByPage.setLimit(limit);
+        DoctorService doctorService=new DoctorServiceImpl();
+        Long total=doctorService.findDetailTotal(detailFindByPage);
+        List<DetailList> detailList=null;
+        if (total>0){
+            detailList=doctorService.detailByPage(detailFindByPage);
+        }
+        R r= R.ok().addData("total",total).addData("detailList",detailList);
+        String result = JSON.toJSONString(r);
+        PrintWriter writer = response.getWriter();
+        writer.write(result);
+        writer.flush();
+        writer.close();
+    }
+
+    public void updateDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        BufferedReader reader = request.getReader();
+        String str="";
+        str=reader.readLine();
+        Doctor doctor = JSONObject.parseObject(str, Doctor.class);
+        DoctorService doctorService=new DoctorServiceImpl();
+        Boolean t=doctorService.updateDetail(doctor);
+        R r=t?R.ok():R.error("修改失败");
         String result = JSON.toJSONString(r);
         PrintWriter writer = response.getWriter();
         writer.write(result);

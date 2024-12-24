@@ -1,5 +1,6 @@
 package servlet.echars;
 
+import bean.pojo.Fee;
 import bean.vo.EcharsAgeVo;
 import commons.BaseServlet;
 import commons.Write;
@@ -28,6 +29,26 @@ public class EcharsServlet extends BaseServlet {
             Write.writeSuccess(response, echarsAge);
         } else {
             Write.writeFail(response, "暂无数据");
+        }
+    }
+
+    public void getArrears(HttpServletRequest req, HttpServletResponse resp){
+        Integer relationId = Integer.parseInt(req.getParameter("relationId"));
+        Fee arrears = echarsService.getArrears(relationId);
+        if (arrears != null){
+            Write.writeSuccess(resp, arrears);
+        } else {
+            Write.writeFail(resp, "暂无数据");
+        }
+    }
+
+    public void setArrears(HttpServletRequest req, HttpServletResponse resp){
+        Integer relationId = Integer.parseInt(req.getParameter("relationId"));
+        boolean isSuccess = echarsService.setArrears(relationId);
+        if (isSuccess){
+            Write.writeSuccess(resp,null,"操作成功");
+        } else {
+            Write.writeFail(resp,"操作失败");
         }
     }
 }

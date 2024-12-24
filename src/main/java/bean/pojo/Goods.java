@@ -2,9 +2,9 @@ package bean.pojo;
 
 import lombok.Data;
 
+//物资表
 @Data
 public class Goods {
-
   private long goodsId;
   private String goodsName;
   private double goodsPrice;

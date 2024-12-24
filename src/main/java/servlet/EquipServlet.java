@@ -31,7 +31,6 @@ public class EquipServlet extends BaseServlet {
             Integer.parseInt(limit)
         };
         //实例化
-        EquipService equipService = new EquipServiceImpl();
         List<Equip> list = equipService.getList(obj);
         if (list!=null){
             Write.writeSuccess(response,list,"查询成功");
@@ -42,7 +41,6 @@ public class EquipServlet extends BaseServlet {
     public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer equipId = Integer.parseInt(request.getParameter("equipId"));
         //实例化
-        EquipService equipService = new EquipServiceImpl();
         boolean isSuccess = equipService.delete(equipId);
         if (isSuccess) {
             Write.writeSuccess(response,null,"删除成功");
