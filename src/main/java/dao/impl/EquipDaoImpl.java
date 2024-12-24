@@ -9,11 +9,15 @@ import java.util.List;
 
 public class EquipDaoImpl implements EquipDao {
     @Override
-    //用拼接sql语句查询一组数据
+
+    //用于用拼接sql语句（模糊）查询，返回查询结果。
+
+    //创建一个盛放查询结果的数组，先检测前端是否有对应的参数，如有，则拼接对应参数的sql查询语句
+    //使用DataSourceUtil的queryToBeanListHandler方法处理查询结果，将查询结果封装到List集合中，返回。
+
     public List<Equip> getList(Object[] obj) {
-        //创建一个List集合，用于存储查询结果
+        //存储sql语句中对应的参数
         List<Object> list = new ArrayList<>();
-        //创建一个StringBuilder对象，用于拼接sql语句
         StringBuilder sql = new StringBuilder("select * from equip where 1=1");
         //判断第一个参数是否为空，不为空则拼接sql语句
         if (obj[0] != null && !(String.valueOf(obj[0]).trim().isEmpty())){

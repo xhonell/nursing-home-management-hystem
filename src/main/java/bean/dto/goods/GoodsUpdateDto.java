@@ -1,13 +1,11 @@
-package bean.vo;
+package bean.dto.goods;
 
 import lombok.Data;
 
 import java.sql.Date;
 
-//物资联查分类表
 @Data
-public class GoodsVo {
-    private long goodsId;
+public class GoodsUpdateDto {
     private String goodsName;
     private double goodsPrice;
     private long goodsNumber;
@@ -16,4 +14,5 @@ public class GoodsVo {
     private Date goodsStartDate;
     private long classifyId;
     private String classifyName;
+    private long goodsId;
 }

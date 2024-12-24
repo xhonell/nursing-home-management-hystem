@@ -1,12 +1,13 @@
 package dao.impl.person;
 
+import bean.dto.DetailFindByPage;
 import bean.dto.DoctorFindByPage;
 import bean.pojo.Doctor;
+import bean.vo.DetailList;
 import bean.vo.DoctorList;
 import commons.DBHelper;
 import commons.JDBCUtils;
 import dao.person.DoctorDao;
-import dao.person.OlderDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,6 +136,99 @@ public class DoctorDaoImpl implements DoctorDao {
     public Boolean deleteDoctor(Doctor doctor) {
         String sql="delete from doctor where doctorId=?";
         int row = dbHelper.update(sql, doctor.getDoctorId());
+        return row>0?true:false;
+    }
+
+    @Override
+    public Boolean deleteDoctors(Object[] object) {
+        if (object==null||object.length==0){
+            return false;
+        }
+        String sql="delete from doctor where doctorId in (?)";
+        Object[] parameters=new Object[1];
+        parameters[0]= object;
+        int row = dbHelper.update(sql, parameters);
+        return row>0?true:false;
+    }
+
+    @Override
+    public Long findDetailTotal(DetailFindByPage detailFindByPage) {
+        StringBuffer sql=new StringBuffer("select count(d.doctorId) total from doctor d " +
+                "left join position p on p.positionId=d.positionId " +
+                "left join department de on de.departmentId=p.departmentId where 1=1 ");
+        List<Object> parameters=new ArrayList<>();
+        if (detailFindByPage.getDoctorName()!=null){
+            sql.append("and d.doctorName like concat('%',?,'%') ");
+            parameters.add(detailFindByPage.getDoctorName());
+        }
+        if (detailFindByPage.getDoctorSex()!=null){
+            sql.append("and d.doctorSex=? ");
+            parameters.add(detailFindByPage.getDoctorSex());
+        }
+        if (detailFindByPage.getDoctorAge()!=null){
+            sql.append("and d.doctorAge=? ");
+            parameters.add(detailFindByPage.getDoctorAge());
+        }
+        if (detailFindByPage.getDepartmentId()!=null){
+            sql.append("and de.departmentId=? ");
+            parameters.add(detailFindByPage.getDepartmentId());
+        }
+        if (detailFindByPage.getPositionId()!=null){
+            sql.append("and p.positionId=? ");
+            parameters.add(detailFindByPage.getPositionId());
+        }
+        if (detailFindByPage.getDoctorPopularity()!=null){
+            sql.append("and d.doctorPopularity=? ");
+            parameters.add(detailFindByPage.getDoctorPopularity());
+        }
+        List<Map<String, Object>> list = jdbcUtils.select(sql.toString(), parameters.toArray());
+        Long totalNumber=0L;
+        if (list.size()>0){
+            totalNumber=(Long) list.get(0).get("total");
+        }
+        return totalNumber;
+    }
+
+    @Override
+    public List<DetailList> detailByPage(DetailFindByPage detailFindByPage) {
+        StringBuffer sql=new StringBuffer("select d.doctorId,d.doctorName,d.doctorSex,d.doctorAge,de.departmentName," +
+                "p.positionName,d.doctorJob,d.doctorIntroduction,d.doctorExperience,d.doctorPopularity from doctor d " +
+                "left join position p on p.positionId=d.positionId " +
+                "left join department de on de.departmentId=p.departmentId where 1=1 ");
+        List<Object> parameters=new ArrayList<>();
+        if (detailFindByPage.getDoctorName()!=null){
+            sql.append("and d.doctorName like concat('%',?,'%') ");
+            parameters.add(detailFindByPage.getDoctorName());
+        }
+        if (detailFindByPage.getDoctorSex()!=null){
+            sql.append("and d.doctorSex=? ");
+            parameters.add(detailFindByPage.getDoctorSex());
+        }
+        if (detailFindByPage.getDoctorAge()!=null){
+            sql.append("and d.doctorAge=? ");
+            parameters.add(detailFindByPage.getDoctorAge());
+        }
+        if (detailFindByPage.getDepartmentId()!=null){
+            sql.append("and de.departmentId=? ");
+            parameters.add(detailFindByPage.getDepartmentId());
+        }
+        if (detailFindByPage.getPositionId()!=null){
+            sql.append("and p.positionId=? ");
+            parameters.add(detailFindByPage.getPositionId());
+        }
+        if (detailFindByPage.getDoctorPopularity()!=null){
+            sql.append("and d.doctorPopularity=? ");
+            parameters.add(detailFindByPage.getDoctorPopularity());
+        }
+        sql.append("order by d.doctorId limit "+(detailFindByPage.getPage()-1)*detailFindByPage.getLimit()+","+detailFindByPage.getLimit());
+        return dbHelper.getBeanList(DetailList.class,sql.toString(),parameters.toArray());
+    }
+
+    @Override
+    public Boolean updateDetail(Doctor doctor) {
+        String sql="update doctor set doctorPopularity=? where doctorId=?";
+        Object[] parameters={doctor.getDoctorPopularity(),doctor.getDoctorId()};
+        int row = dbHelper.update(sql, parameters);
         return row>0?true:false;
     }
 }
