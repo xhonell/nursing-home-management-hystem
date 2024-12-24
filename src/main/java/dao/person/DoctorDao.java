@@ -1,7 +1,9 @@
 package dao.person;
 
+import bean.dto.DetailFindByPage;
 import bean.dto.DoctorFindByPage;
 import bean.pojo.Doctor;
+import bean.vo.DetailList;
 import bean.vo.DoctorList;
 
 import java.util.List;
@@ -22,4 +24,12 @@ public interface DoctorDao {
     Boolean updateDoctor(Doctor doctor);
 
     Boolean deleteDoctor(Doctor doctor);
+
+    Boolean deleteDoctors(Object[] object);
+
+    Long findDetailTotal(DetailFindByPage detailFindByPage);
+
+    List<DetailList> detailByPage(DetailFindByPage detailFindByPage);
+
+    Boolean updateDetail(Doctor doctor);
 }
