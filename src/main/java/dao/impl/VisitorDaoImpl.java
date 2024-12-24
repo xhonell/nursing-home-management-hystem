@@ -35,17 +35,7 @@ public class VisitorDaoImpl implements VisitorDao {
         return jdbcUtils.update(sql, params); // 返回插入操作的结果
     }
 
-    /**
-     * 插入访客记录（重载方法）
-     *
-     * @param params 访客参数数组
-     * @return 影响的行数
-     */
-    @Override
-    public int insertVisitor(Object[] params) {
-        String sql = "INSERT INTO visitor (visitorName, visitorCard, visitorTime, visitorReason) VALUES (?, ?, ?, ?)";
-        return jdbcUtils.update(sql, params); // 返回插入操作的结果
-    }
+
 
     /**
      * 更新访客记录
@@ -60,17 +50,7 @@ public class VisitorDaoImpl implements VisitorDao {
         return jdbcUtils.update(sql, params);
     }
 
-    /**
-     * 更新访客记录（重载方法）
-     *
-     * @param params 访客参数数组
-     * @return 影响的行数
-     */
-    @Override
-    public int updateVisitor(Object[] params) {
-        String sql = "UPDATE visitor SET visitorName = ?, visitorCard = ?, visitorTime = ?, visitorReason = ? WHERE visitorId = ?";
-        return jdbcUtils.update(sql, params);
-    }
+
 
     /**
      * 删除访客记录
@@ -85,51 +65,7 @@ public class VisitorDaoImpl implements VisitorDao {
         return jdbcUtils.update(sql, params);
     }
 
-    /**
-     * 根据ID获取访客记录
-     *
-     * @param visitorId 访客ID
-     * @return 访客对象
-     */
-    @Override
-    public Visitor getVisitorById(Long visitorId) {
-        String sql = "SELECT * FROM visitor WHERE visitorId = ?";
-        Object[] params = {visitorId};
-        List<Map<String, Object>> result = jdbcUtils.select(sql, params);
-        if (result.isEmpty()) {
-            return null;
-        }
-        Map<String, Object> row = result.get(0);
-        return new Visitor(
-                ((Number) row.get("visitorId")).longValue(), // 使用 Number 类进行安全转换
-                (String) row.get("visitorName"),
-                (String) row.get("visitorCard"),
-                (Date) row.get("visitorTime"),
-                (String) row.get("visitorReason")
-        );
-    }
 
-    /**
-     * 获取所有访客记录
-     *
-     * @return 访客对象列表
-     */
-    @Override
-    public List<Visitor> getAllVisitors() {
-        String sql = "SELECT * FROM visitor";
-        List<Map<String, Object>> results = jdbcUtils.select(sql);
-        List<Visitor> visitors = new ArrayList<>();
-        for (Map<String, Object> row : results) {
-            visitors.add(new Visitor(
-                    ((Number) row.get("visitorId")).longValue(), // 使用 Number 类进行安全转换
-                    (String) row.get("visitorName"),
-                    (String) row.get("visitorCard"),
-                    (Date) row.get("visitorTime"),
-                    (String) row.get("visitorReason")
-            ));
-        }
-        return visitors;
-    }
 
     /**
      * 获取符合条件的访客数量
